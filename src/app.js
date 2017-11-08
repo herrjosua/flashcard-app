@@ -1,4 +1,3 @@
-//
 // {
 // cards: [{ deckId: 123],
 // decks: [{}]
@@ -28,18 +27,12 @@ store.subscribe(() => {
   console.log(store.getState());
 });
 
-store.dispatch({
-  type: 'ADD_CARD',
-  data: {
-    front: 'front',
-    back: 'back'
-  }
-});
+const App = (props) => {
+  return (
+    <div className='app'>
+      {props.children}
+    </div>
+  );
+};
 
-store.dispatch({
-  type: 'ADD_CARD',
-  data: {
-    front: 'front',
-    back: 'back'
-  }
-});
+ReactDOM.render(<App> Hello <strong>React</strong></App>, document.getElementById( 'root' ));
