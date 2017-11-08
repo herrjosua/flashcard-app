@@ -28,7 +28,7 @@ const App = (props) => {
   );
 };
 
-const Sidebar = React.createClass({
+class Sidebar extends React.Component {
   render() {
     let props = this.props;
 
@@ -44,7 +44,7 @@ const Sidebar = React.createClass({
       </div>
     );
   }
-});
+};
 
 ReactDOM.render((<App>
   <Sidebar decks={[ { name: 'Deck 1'} ]} addingDeck={false} />
