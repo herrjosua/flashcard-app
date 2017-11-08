@@ -1,3 +1,11 @@
+// Add Deck
+// SHOW_ADD_DECK
+// HIDE_ADD_DECK
+
+const addDeck = name => ({ type: 'ADD_DECK', data: name });
+const showAddDeck = name => ({ type: 'SHOW_ADD_DECK' });
+const hideAddDeck = name => ({ type: 'HIDE_ADD_DECK' });
+
 const cards = (state, action) => {
   switch (action.type) {
     case 'ADD_CARD':
@@ -12,8 +20,33 @@ const cards = (state, action) => {
   }
 };
 
+const decks = (state, action) => {
+  switch (action.type) {
+    case 'ADD_DECK':
+      let newDeck = {
+        name: action.data,
+        id: +new Date
+      };
+
+      return state.concat([newDeck]);
+
+    default:
+      return state || [];
+  }
+};
+
+const addingDeck = (state, action) => {
+  switch (action.type) {
+    case 'SHOW_ADD_DECK': return true;
+    case 'HIDE_ADD_DECK': return false;
+    default: return !!state;
+  }
+};
+
 const store = Redux.createStore(Redux.combineReducers({
-  cards
+  cards,
+  decks,
+  addingDeck
 }));
 
 store.subscribe(() => {
@@ -46,6 +79,17 @@ class Sidebar extends React.Component {
   }
 };
 
-ReactDOM.render((<App>
-  <Sidebar decks={[ { name: 'Deck 1'} ]} addingDeck={false} />
-</App>), document.getElementById( 'root' ));
+function run () {
+  let state = store.getState();
+  ReactDOM.render((<App>
+    <Sidebar decks={state.decks} addingDeck={state.addingDeck}/>
+  </App>), document.getElementById('root'));
+}
+
+run();
+
+store.subscribe(run);
+
+window.show = () => store.dispatch(showAddDeckgi());
+window.hide = () => store.dispatch(hideAddDeck());
+window.add = () => store.dispatch(addDeck(new Date().string()));
