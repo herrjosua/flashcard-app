@@ -138,3 +138,5 @@ crashlytics.properties
 crashlytics-build.properties
 fabric.properties
 
+# Build Directories
+public/bundle.js

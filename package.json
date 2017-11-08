@@ -1,14 +1,15 @@
 {
   "name": "flashcard-app",
   "version": "1.0.0",
-  "description": "",
+  "description": "React and Redux Flashcard app",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "watchify src/app.js -o public/bundle.js -t [ babelify --presets [ react es2015 ] ]"
+    "build": "watchify src/app.js -o public/bundle.js -t [ babelify --presets [ react env ] ]",
+    "server": "cd public; live-server --port=1234 --entry-file=index.html"
   },
   "keywords": [],
-  "author": "",
+  "author": "Joshua Bock",
   "license": "ISC",
   "dependencies": {
     "babel-preset-es2015": "^6.24.1",
@@ -18,6 +19,7 @@
     "watchify": "^3.9.0"
   },
   "devDependencies": {
+    "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.6.1"
   }
 }
