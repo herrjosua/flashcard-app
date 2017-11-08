@@ -1,7 +1,3 @@
-// Add Deck
-// SHOW_ADD_DECK
-// HIDE_ADD_DECK
-
 const addDeck = name => ({ type: 'ADD_DECK', data: name });
 const showAddDeck = name => ({ type: 'SHOW_ADD_DECK' });
 const hideAddDeck = name => ({ type: 'HIDE_ADD_DECK' });
@@ -68,28 +64,40 @@ class Sidebar extends React.Component {
     return (
       <div className="sidebar">
         <h2>All Decks</h2>
+
+        <button onClick={ e => this.props.showAddDeck() }>New Deck</button>
+
         <ul>
           {props.decks.map((deck, i) =>
             <li key={i}> {deck.name}</li>
           )}
         </ul>
-        { props.addingDeck && <input ref='add' />}
+        { props.addingDeck && <input ref='add' onKeyPress={this.createDeck} /> }
       </div>
     );
+  }
+  createDeck(evt) {
+    if (evt.which !== 13) return;
+
+    var name = ReactDOM.findDOMNode(this.refs.add).value;
+    this.props.addDeck(name);
+    this.props.hideDeck();
   }
 };
 
 function run () {
   let state = store.getState();
   ReactDOM.render((<App>
-    <Sidebar decks={state.decks} addingDeck={state.addingDeck}/>
+    <Sidebar
+      decks={state.decks}
+      addingDeck={state.addingDeck}
+      addDeck={name => store.dispatch(addDeck(name))}
+      showAddDeck={() => store.dispatch(showAddDeck())}
+      hideAddDeck={() => store.dispatch(hideAddDeck())}
+    />
   </App>), document.getElementById('root'));
 }
 
 run();
 
 store.subscribe(run);
-
-window.show = () => store.dispatch(showAddDeckgi());
-window.hide = () => store.dispatch(hideAddDeck());
-window.add = () => store.dispatch(addDeck(new Date().string()));
