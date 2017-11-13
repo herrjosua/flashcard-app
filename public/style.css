@@ -65,7 +65,7 @@ button.delete {
   border-right: 1px solid #eee;
   box-sizing: border-box;
   height: calc(100% - 37px);
-  width: 20%;
+  width: 30%;
   padding: 25px;
   float: left;
 }
@@ -101,10 +101,15 @@ button.delete {
   color: #3187e1;
 }
 
+.sidebar input {
+  margin-top: 1.5em;
+  height: 20px;
+}
+
 .main {
   width: 80%;
   height: calc(100% - 37px);
-  float left;
+  float: left;
   overflow:scroll;
   padding: 20px;
   box-sizing: border-box;

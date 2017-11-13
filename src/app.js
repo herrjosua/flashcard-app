@@ -1,7 +1,8 @@
 const addDeck = name => ({ type: 'ADD_DECK', data: name });
-const showAddDeck = name => ({ type: 'SHOW_ADD_DECK' });
-const hideAddDeck = name => ({ type: 'HIDE_ADD_DECK' });
+const showAddDeck = () => ({ type: 'SHOW_ADD_DECK' });
+const hideAddDeck = () => ({ type: 'HIDE_ADD_DECK' });
 
+//Reducer
 const cards = (state, action) => {
   switch (action.type) {
     case 'ADD_CARD':
@@ -16,6 +17,7 @@ const cards = (state, action) => {
   }
 };
 
+// Reducer
 const decks = (state, action) => {
   switch (action.type) {
     case 'ADD_DECK':
@@ -31,6 +33,7 @@ const decks = (state, action) => {
   }
 };
 
+// Reducer
 const addingDeck = (state, action) => {
   switch (action.type) {
     case 'SHOW_ADD_DECK': return true;
@@ -72,18 +75,23 @@ class Sidebar extends React.Component {
             <li key={i}> {deck.name}</li>
           )}
         </ul>
-        { props.addingDeck && <input ref='add' onKeyPress={this.createDeck} /> }
+        { props.addingDeck && <input id="newDeck" ref="add" onKeyPress={this.createDeck} /> }
       </div>
     );
   }
   createDeck(evt) {
+
     if (evt.which !== 13) return;
 
-    var name = ReactDOM.findDOMNode(this.refs.add).value;
+    // let name = ReactDOM.findDOMNode(this.refs.add).value;
+    let name = ReactDOM.findDOMNode(newDeck).value;
+
+    console.log('What is the value of the variable name? ' + name);
+
     this.props.addDeck(name);
-    this.props.hideDeck();
+    this.props.hideAddDeck();
   }
-};
+}
 
 function run () {
   let state = store.getState();
