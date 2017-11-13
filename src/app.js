@@ -83,11 +83,13 @@ class Sidebar extends React.Component {
 
     if (evt.which !== 13) return;
 
+    // This is not working. The line below gets the value.
     // let name = ReactDOM.findDOMNode(this.refs.add).value;
     let name = ReactDOM.findDOMNode(newDeck).value;
 
     console.log('What is the value of the variable name? ' + name);
 
+    //These two lines are causing an console error. `props` is undefined
     this.props.addDeck(name);
     this.props.hideAddDeck();
   }
